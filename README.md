@@ -119,7 +119,7 @@ Below are a few very important notes to look out for when working on the project
 
 # AWS Console
 
-![AWS CodeBuild pipeline](./screenshots/1-codebuild.png)
+![AWS CodeBuild webhook](./screenshots/10-webhook.png)
 ![AWS ECR Repo](./screenshots/2-ecr-repo.png)
 ![AWS CloudWatch](./screenshots/9-logs.png)
 
