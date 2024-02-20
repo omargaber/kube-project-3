@@ -1,0 +1,54 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: coworking-ms
+spec:
+  selector:
+    app.kubernetes.io/name: coworking-ms
+  ports:
+  - name: "5050"
+    protocol: TCP
+    port: 5153
+    targetPort: 5153
+
+---
+
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: coworking-ms
+  labels:
+    service: coworking-ms
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: coworking-ms
+  template:
+    metadata:
+      labels:
+        service: coworking-ms
+    spec:
+      containers:
+      - name: coworking-ms
+        image: 355434700021.dkr.ecr.us-east-2.amazonaws.com/coworking-ms:lastest
+        imagePullPolicy: Always
+        livenessProbe:
+          httpGet:
+            path: /health_check
+            port: 5153
+          initialDelaySeconds: 5
+          timeoutSeconds: 2
+        readinessProbe:
+          httpGet:
+            path: "/readiness_check"
+            port: 5153
+          initialDelaySeconds: 5
+          timeoutSeconds: 5
+        env:
+          - name: DB_USERNAME
+            value: postgres
+          - name: DB_PASSWORD
+            value: posgtres
+      restartPolicy: Always
+
