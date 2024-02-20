@@ -18,20 +18,20 @@ kind: Deployment
 metadata:
   name: coworking-ms
   labels:
-    service: coworking-ms
+    app: coworking-ms
 spec:
   replicas: 1
   selector:
     matchLabels:
-      service: coworking-ms
+      app: coworking-ms
   template:
     metadata:
       labels:
-        service: coworking-ms
+        app: coworking-ms
     spec:
       containers:
       - name: coworking-ms
-        image: 355434700021.dkr.ecr.us-east-2.amazonaws.com/coworking-ms:lastest
+        image: 355434700021.dkr.ecr.us-east-2.amazonaws.com/coworking-ms:latest
         imagePullPolicy: Always
         livenessProbe:
           httpGet:
@@ -45,10 +45,9 @@ spec:
             port: 5153
           initialDelaySeconds: 5
           timeoutSeconds: 5
-        env:
-          - name: DB_USERNAME
-            value: postgres
-          - name: DB_PASSWORD
-            value: posgtres
+        envFrom:
+          - secretRef:
+              name: coworking-ms-db-secret
+          - configMapRef:
+              name: coworking-ms-db-configmap
       restartPolicy: Always
-
