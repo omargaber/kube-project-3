@@ -107,6 +107,29 @@ The benefit here is that it's explicitly set. However, note that the `DB_PASSWOR
 4. Create a service and deployment using Kubernetes configuration files to deploy the application
 5. Check AWS CloudWatch for application logs
 
+## Pitfalls to watch for
+Below are a few very important notes to look out for when working on the project.
+1. You need to make sure that the Amazon EBS CSI Driver Add-on is installed or the postgres pod will remain in pending state.
+2. You need to make sure that the node groups have permissions to create and attach EC2 Volumes.
+3. To keep the secret safe, use kubectl CLI to create a secret for the generated database password which you will provide to the container in the deployment yml file.
+4. Make sure the cluster allows your iam user to access it to be able to use the cli efficiently.
+
+
+## Screenshots
+
+# AWS Console
+
+![AWS CodeBuild pipeline](./screenshots/1-codebuild.png)
+![AWS ECR Repo](./screenshots/2-ecr-repo.png)
+![AWS CloudWatch](./screenshots/7-cloudwatch.png)
+
+# KubeCTL screenshots
+![kubectl get svc](./screenshots/3-svc.png)
+![kubectl get pods](./screenshots/4-pods.png)
+![kubectl db pod](./screenshots/5-describe-postgres.png)
+![kubectl deployment](./screenshots/6-describe-deployment.png)
+![kubectl pod logs](./screenshots/8-pod-logs.png)
+
 ### Deliverables
 1. `Dockerfile`
 2. Screenshot of AWS CodeBuild pipeline
@@ -120,11 +143,6 @@ The benefit here is that it's explicitly set. However, note that the `DB_PASSWOR
 10. `README.md` file in your solution that serves as documentation for your user to detail how your deployment process works and how the user can deploy changes. The details should not simply rehash what you have done on a step by step basis. Instead, it should help an experienced software developer understand the technologies and tools in the build and deploy process as well as provide them insight into how they would release new builds.
 
 
-### Stand Out Suggestions
-Please provide up to 3 sentences for each suggestion. Additional content in your submission from the standout suggestions do _not_ impact the length of your total submission.
-1. Specify reasonable Memory and CPU allocation in the Kubernetes deployment configuration
-2. In your README, specify what AWS instance type would be best used for the application? Why?
-3. In your README, provide your thoughts on how we can save on costs?
 
 ### Best Practices
 * Dockerfile uses an appropriate base image for the application being deployed. Complex commands in the Dockerfile include a comment describing what it is doing.
