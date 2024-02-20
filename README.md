@@ -121,7 +121,7 @@ Below are a few very important notes to look out for when working on the project
 
 ![AWS CodeBuild pipeline](./screenshots/1-codebuild.png)
 ![AWS ECR Repo](./screenshots/2-ecr-repo.png)
-![AWS CloudWatch](./screenshots/7-cloudwatch.png)
+![AWS CloudWatch](./screenshots/9-logs.png)
 
 # KubeCTL screenshots
 ![kubectl get svc](./screenshots/3-svc.png)
